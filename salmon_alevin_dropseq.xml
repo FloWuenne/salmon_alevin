@@ -1,0 +1,101 @@
+<tool id="salmon_alevin_dropseq" name="Use salmon - alevin to quantify Drop-seq data." version="0.1.0">
+    <requirements>
+        <requirement type="package">salmon</requirement>
+    </requirements>
+    <command detect_errors="exit_code"><![CDATA[
+        salmon alevin -lISR -1 Florian_170529_R1_3000STAMPS_S1_L001_R1_001.fastq.gz -2  Florian_170529_R1_3000STAMPS_S1_L001_R2_001.fastq.gz --dropseq -i vM20_index -p 6 -o "$output1" --tgMap vM20_txp2gene.tsv --dumpCsvCounts --dumpUmiGraph --expectCells 3000
+    ]]></command>
+    <inputs>
+        <param type="data" name="input1" format="gz" />
+    </inputs>
+    <outputs>
+        <data name="output1" format="data" />
+    </outputs>
+    <tests>
+        <test>
+            <param name="input1" value="Florian_170529_R1_3000STAMPS_S1_L001_R1_001.fastq.gz,Florian_170529_R1_3000STAMPS_S1_L001_R2_001.fastq.gz"/>
+            <output name="output1" file="alevin_output"/>
+        </test>
+    </tests>
+    <help><![CDATA[
+        Version Info: This is the most recent version of salmon.
+
+alevin
+==========
+salmon-based processing of single-cell RNA-seq data.
+
+alevin options:
+
+
+mapping input options:
+  -l [ --libType ] arg                  Format string describing the library 
+                                        type
+  -i [ --index ] arg                    salmon index
+  -r [ --unmatedReads ] arg             List of files containing unmated reads 
+                                        of (e.g. single-end reads)
+  -1 [ --mates1 ] arg                   File containing the #1 mates
+  -2 [ --mates2 ] arg                   File containing the #2 mates
+
+
+alevin-specific Options:
+  -v [ --version ]                      print version string
+  -h [ --help ]                         produce help message
+  -o [ --output ] arg                   Output quantification directory.
+  -p [ --threads ] arg (=2)             The number of threads to use 
+                                        concurrently.
+  --tgMap arg                           transcript to gene map tsv file
+  --dropseq                             Use DropSeq Single Cell protocol for 
+                                        the library
+  --chromiumV3                          Use 10x chromium v3 Single Cell 
+                                        protocol for the library.
+  --chromium                            Use 10x chromium v2 Single Cell 
+                                        protocol for the library.
+  --gemcode                             Use 10x gemcode v1 Single Cell protocol
+                                        for the library.
+  --celseq                              Use CEL-Seq Single Cell protocol for 
+                                        the library.
+  --celseq2                             Use CEL-Seq2 Single Cell protocol for 
+                                        the library.
+  --whitelist arg                       File containing white-list barcodes
+  --noQuant                             Don't run downstream barcode-salmon 
+                                        model.
+  --numCellBootstraps arg (=0)          Generate mean and variance for cell x 
+                                        gene matrix quantification estimates.
+  --forceCells arg (=0)                 Explicitly specify the number of cells.
+  --expectCells arg (=0)                define a close upper bound on expected 
+                                        number of cells
+  --mrna arg                            path to a file containing mito-RNA 
+                                        gene, one per line
+  --rrna arg                            path to a file containing ribosomal 
+                                        RNA, one per line
+  --useCorrelation                      Use pair-wise pearson correlation with 
+                                        True barcodes as a feature for 
+                                        white-list creation.
+  --dumpfq                              Dump barcode modified fastq file for 
+                                        downstream analysis by using coin toss 
+                                        for multi-mapping.
+  --dumpBfh                             dump the big hash with all the barcodes
+                                        and the UMI sequence.
+  --dumpUmiGraph                        dump the per cell level Umi Graph.
+  --dumpFeatures                        Dump features for whitelist and 
+                                        downstream analysis.
+  --dumpCsvCounts                       Dump cell v transcripts count matrix in
+                                        csv format.
+  --lowRegionMinNumBarcodes arg (=200)  Minimum Number of CB to use for 
+                                        learning Low confidence region 
+                                        (Default: 200).
+  --maxNumBarcodes arg (=100000)        Maximum allowable limit to process the 
+                                        cell barcodes. (Default: 100000)
+
+
+    ]]></help>
+    <citations>
+        <citation type="bibtex">
+@misc{renameTODO,
+  author = {LastTODO, FirstTODO},
+  year = {TODO},
+  title = {TODO},
+  url = {https://salmon.readthedocs.io/en/latest/alevin.html#},
+}</citation>
+    </citations>
+</tool>

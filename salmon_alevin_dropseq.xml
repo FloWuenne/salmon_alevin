@@ -1,23 +1,49 @@
-<tool id="salmon_alevin_dropseq" name="Use salmon - alevin to quantify Drop-seq data." version="0.1.0">
-    <requirements>
-        <requirement type="package">salmon</requirement>
-    </requirements>
-    <command detect_errors="exit_code"><![CDATA[
-        salmon alevin -lISR -1 Florian_170529_R1_3000STAMPS_S1_L001_R1_001.fastq.gz -2  Florian_170529_R1_3000STAMPS_S1_L001_R2_001.fastq.gz --dropseq -i vM20_index -p 6 -o "$output1" --tgMap vM20_txp2gene.tsv --dumpCsvCounts --dumpUmiGraph --expectCells 3000
-    ]]></command>
-    <inputs>
-        <param type="data" name="input1" format="gz" />
-    </inputs>
-    <outputs>
-        <data name="output1" format="data" />
-    </outputs>
-    <tests>
-        <test>
-            <param name="input1" value="Florian_170529_R1_3000STAMPS_S1_L001_R1_001.fastq.gz,Florian_170529_R1_3000STAMPS_S1_L001_R2_001.fastq.gz"/>
-            <output name="output1" file="alevin_output"/>
-        </test>
-    </tests>
-    <help><![CDATA[
+<tool id="salmon_alevin" name="Salmon Alevin" version="0.1.0">
+	<description>Salmon alevin enables gene quantification for single-cell RNA-seq using quasi mapping.</description>
+	<requirements>
+		<requirement type="package" version="0.11.2">salmon</requirement>
+	</requirements>
+
+	 <command><![CDATA[
+
+	## Create output directory for salmon alevin
+	mkdir ./alevin_output 
+
+	## Run salmon alevin
+	salmon alevin 
+	-lISR
+	-1 $input_fastq1
+	-2 $input_fastq2
+	--$sc_datatype
+	-i $ref_transcriptome 
+	-p 1
+	-o ./alevin_output
+
+
+	]]>
+	</command>
+
+	<inputs>
+		<param type="data" name="input_fastq1" format="gz" />
+		<param type="data" name="input_fastq2" format="gz" />
+	
+		<param name="ref_transcriptome" label="Reference Organism" type="select" multiple="false" format="text" help="Choose a reference transcriptome!">
+			<option value="v29_index">Homo sapiens</option>
+			<option value="vM20_index">Mus musculus</option>
+		</param> 
+
+		<param name="sc_datatype" label="scRNA-seq datatype" type="select" multiple="false" format="text" help="Choose the single-cell platform used to create your data!">
+			<option value ="chromium">10x Genomics 3'RNA-seq v2</option>
+			<option value ="chromiumV3">10x Genomics 3'RNA-seq v3</option>
+			<option value ="dropseq">Drop-seq</option>
+		</param>
+
+	</inputs>
+	<outputs>
+		<data name="output1" format="data" />
+	</outputs>
+
+	<help><![CDATA[
         Version Info: This is the most recent version of salmon.
 
 alevin

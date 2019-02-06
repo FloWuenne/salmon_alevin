@@ -1,0 +1,4 @@
+## This is a sample file distributed with Galaxy that is used to define a list of salmon alevin indexes 
+## that can be used with salmon alevin. Indexes have to be created by the user beforehand.
+## This file specifies the location of these indices in the following format (separated by tab characters):
+## salmon_alevin_index_id	Index description	Index path on galaxy server

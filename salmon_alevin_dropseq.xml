@@ -15,10 +15,10 @@
 	-1 $input_fastq1
 	-2 $input_fastq2
 	--$sc_datatype
-	-i $ref_transcriptome 
+	-i ./ref/$ref_transcriptome 
+	--tgMap ./ref/vM20_txp2gene.tsv 
 	-p 1
 	-o ./alevin_output
-
 
 	]]>
 	</command>
@@ -40,8 +40,24 @@
 
 	</inputs>
 	<outputs>
-		<data name="output1" format="data" />
+		<data name="alevin_log" format="txt" from_work_dir="alevin_output/alevin/alevin.log" />
+		<data name="alevin_predictions" format="txt" from_work_dir="alevin_output/alevin/predictions.txt" />
+		<data name="alevin_quants_mat" format="gz" from_work_dir="alevin_output/alevin/quants_mat.gz" />
+		<data name="alevin_quants_mat_cols" format="txt" from_work_dir="alevin_output/alevin/quants_mat_cols.txt" />
+		<data name="alevin_quants_mat_rows" format="txt" from_work_dir="alevin_output/alevin/quants_mat_rows.txt" />
+		<data name="alevin_quants_tier_mat" format="gz" from_work_dir="alevin_output/alevin/quants_tier_mat.gz" />
+		<data name="alevin_whitelist" format="txt" from_work_dir="alevin_output/alevin/whitelist.txt" />
+
 	</outputs>
+	<tests>
+		<test>
+		<param name="input_fastq1" value="test_salmon_alevin.R1.fastq.gz"/>
+		<param name="input_fastq2" value="test_salmon_alevin.R2.fastq.gz"/>
+		<param name="ref_transcriptome" value="vM20_index"/>
+		<param name="sc_datatype" value="dropseq"/>
+		</test>
+	</tests>
+
 
 	<help><![CDATA[
         Version Info: This is the most recent version of salmon.

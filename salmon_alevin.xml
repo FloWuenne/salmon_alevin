@@ -24,15 +24,15 @@
 	</command>
 
 	<inputs>
-		<param type="data" name="input_fastq1" format="gz" />
-		<param type="data" name="input_fastq2" format="gz" />
+		<param type="data" name="input_fastq1" label="Read 1 file for scRNA-seq dataset. (.fastq/.fastq.gz)" format="fastq,gz" />
+		<param type="data" name="input_fastq2" label="Read 2 file for scRNA-seq dataset. (.fastq/.fastq.gz)"  format="fastq,gz" />
 	
-		<param name="ref_transcriptome" label="Reference Organism" type="select" multiple="false" format="text" help="Choose a reference transcriptome!">
-			<option value="v29_index">Homo sapiens</option>
-			<option value="vM20_index">Mus musculus</option>
+		<param name="ref_transcriptome" label="Select the reference transcriptome of your choice:" type="select" multiple="false" format="text" help="Choose a reference transcriptome!">
+			<option value="v29_index">Homo sapiens (Gencode v29)</option>
+			<option value="vM20_index">Mus musculus (Gencode vM20)</option>
 		</param> 
 
-		<param name="sc_datatype" label="scRNA-seq datatype" type="select" multiple="false" format="text" help="Choose the single-cell platform used to create your data!">
+		<param name="sc_datatype" label="Select your scRNA-seq datatype:" type="select" multiple="false" format="text" help="Choose the single-cell platform used to create your data!">
 			<option value ="chromium">10x Genomics 3'RNA-seq v2</option>
 			<option value ="chromiumV3">10x Genomics 3'RNA-seq v3</option>
 			<option value ="dropseq">Drop-seq</option>
@@ -60,7 +60,24 @@
 
 
 	<help><![CDATA[
-Insert help here! 
+
+Salmon Alevin - Galaxy implementation
+====================== 
+
+
+
+Helpful information
+======================
+
+
+Contact
+======================
+
+If you like this galaxy tool and want to add or recommend features to implement, please create a pull request at the github repository:
+https://github.com/FloWuenne/salmon_alevin
+
+or send a quick mail describing your aim to flowuenne@gmail.com!
+
 
     ]]></help>
     <citations>

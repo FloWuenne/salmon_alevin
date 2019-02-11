@@ -64,10 +64,18 @@
 Salmon Alevin - Galaxy implementation
 ========================================= 
 
+This is a simple Galaxy tool for the popular scRNA-seq quantification tool Salmon alevin (https://salmon.readthedocs.io/en/latest/alevin.html). This tool takes paired-end .fastq or .fastq.gz files as input and uses salmon alevin to quantify the scRNA-seq data against a reference transcriptome of interest. 
 
+Currently supported references:
+	* Human (Gencode v29)
+	* Mouse (Gencode vM20)
 
-Helpful information
-======================
+Current supported sinlge-cell technologies:
+	* 10x Genomics 3'scRNA-seq v2
+	* 10x Genomics 3'scRNA-seq v3
+	* Drop-seq
+
+This tool only represents a wrapper for salmon alevin for Galaxy and does not add any additional functionalities. If you would like additional features to be added to salmon alevin, please contact the tool authors directly!
 
 
 Contact

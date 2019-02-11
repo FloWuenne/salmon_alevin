@@ -4,6 +4,14 @@
 		<requirement type="package" version="0.11.2">salmon</requirement>
 	</requirements>
 
+	<stdio>
+		<exit_code range="1:" />
+		<exit_code range=":-1" />
+		<regex match="Error:" />
+		<regex match="Exception:" />
+		<regex match="Exception :" />
+	</stdio>
+
 	 <command><![CDATA[
 
 	## Create output directory for salmon alevin
@@ -11,14 +19,17 @@
 
 	## Run salmon alevin
 	salmon alevin 
-	-lISR
-	-1 $input_fastq1
-	-2 $input_fastq2
-	--$sc_datatype
-	-i ./ref/$ref_transcriptome 
-	--tgMap ./ref/vM20_txp2gene.tsv 
-	-p 1
-	-o ./alevin_output
+		-lISR
+		-1 $input_fastq1
+		-2 $input_fastq2
+		--$sc_datatype
+		-i /data/galaxy_data/references/salmon_alevin/$ref_transcriptome
+		#if $ref_transcriptome == 'v29_index'
+			--tgMap /data/galaxy_data/references/salmon_alevin/ 
+		#else if $ref_transcriptome == 'vM20_index'
+			--tgMap /data/galaxy_data/references/salmon_alevin/vM20_txp2gene.tsv 
+		-p 1
+		-o ./alevin_output
 
 	]]>
 	</command>
@@ -51,10 +62,17 @@
 	</outputs>
 	<tests>
 		<test>
-		<param name="input_fastq1" value="test_salmon_alevin.R1.fastq.gz"/>
-		<param name="input_fastq2" value="test_salmon_alevin.R2.fastq.gz"/>
+		<param name="input_fastq1" value="test_salmon_alevin.R1.1000.fastq"/>
+		<param name="input_fastq2" value="test_salmon_alevin.R2.1000.fastq"/>
 		<param name="ref_transcriptome" value="vM20_index"/>
 		<param name="sc_datatype" value="dropseq"/>
+		<output name="alevin_log" file="alevin.log"/>
+		<output name="alevin_predictions" file="predictions.txt"/>
+		<output name="alevin_quants_mat" file="quants_mat.gz"/>
+		<output name="alevin_quants_mat_cols" file="quants_mat_cols.txt"/>
+		<output name="alevin_quants_mat_rows" file="quants_mat_rows.txt"/>
+		<output name="alevin_quants_tier_mat" file="quants_tier_mat.gz"/>
+		<output name="alevin_whitelist" file="whitelist.txt"/>
 		</test>
 	</tests>
 
@@ -76,6 +94,8 @@ Current supported sinlge-cell technologies:
 	* Drop-seq
 
 This tool only represents a wrapper for salmon alevin for Galaxy and does not add any additional functionalities. If you would like additional features to be added to salmon alevin, please contact the tool authors directly!
+
+Disclaimer: This implementation of Salmon Alevin for galaxy has taken many inspirations from the salmon galaxy wrapper (https://github.com/bgruening/galaxytools/tree/master/tools/salmon) by Bjoern Gruening and additional contributors.
 
 
 Contact

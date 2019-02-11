@@ -89,12 +89,6 @@ or send a quick mail describing your aim to flowuenne@gmail.com!
 
     ]]></help>
     <citations>
-        <citation type="bibtex">
-@misc{renameTODO,
-  author = {LastTODO, FirstTODO},
-  year = {TODO},
-  title = {TODO},
-  url = {https://salmon.readthedocs.io/en/latest/alevin.html#},
-}</citation>
+	<citation type="doi">10.1101/021592</citation>	
     </citations>
 </tool>

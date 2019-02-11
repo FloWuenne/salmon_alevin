@@ -27,7 +27,7 @@
 		#if $ref_transcriptome == 'v29_index'
 			--tgMap /data/galaxy_data/references/salmon_alevin/ 
 		#else if $ref_transcriptome == 'vM20_index'
-			--tgMap /data/galaxy_data/references/salmon_alevin/vM20_txp2gene.tsv 
+			--tgMap /data/galaxy_data/references/salmon_alevin/vM20_txp2gene.tsv		    #end if 
 		-p 1
 		-o ./alevin_output
 

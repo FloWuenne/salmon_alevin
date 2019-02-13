@@ -1,7 +1,7 @@
 <tool id="salmon_alevin" name="Salmon Alevin" version="0.1.0">
 	<description> enables gene quantification for single-cell RNA-seq using quasi mapping.</description>
 	<requirements>
-		<requirement type="package" version="0.11.2">salmon</requirement>
+		<requirement type="package" version="0.12.0">salmon</requirement>
 	</requirements>
 
 	<stdio>
@@ -16,18 +16,22 @@
 
 	## Create output directory for salmon alevin
 	mkdir ./alevin_output 
-
-	## Run salmon alevin
+	&&
+	ln -s $input_fastq1 ./mate1.fastq
+	&&
+	ln -s $input_fastq2 ./mate2.fastq
+	&&
 	salmon alevin 
-		-lISR
-		-1 $input_fastq1
-		-2 $input_fastq2
+		-l ISR
+		-1 ./mate1.fastq
+		-2 ./mate2.fastq
 		--$sc_datatype
 		-i /data/galaxy_data/references/salmon_alevin/$ref_transcriptome
-		#if $ref_transcriptome == 'v29_index'
-			--tgMap /data/galaxy_data/references/salmon_alevin/ 
-		#else if $ref_transcriptome == 'vM20_index'
-			--tgMap /data/galaxy_data/references/salmon_alevin/vM20_txp2gene.tsv		    #end if 
+		#if $ref_transcriptome == 'v29_index':
+			--tgMap /data/galaxy_data/references/salmon_alevin/v29_txp2gene.tsv 
+		#else if $ref_transcriptome == 'vM20_index':
+			--tgMap /data/galaxy_data/references/salmon_alevin/vM20_txp2gene.tsv
+		#end if 
 		-p 1
 		-o ./alevin_output
 
@@ -35,8 +39,8 @@
 	</command>
 
 	<inputs>
-		<param type="data" name="input_fastq1" label="Read 1 file for scRNA-seq dataset. (.fastq/.fastq.gz)" format="fastq,gz" />
-		<param type="data" name="input_fastq2" label="Read 2 file for scRNA-seq dataset. (.fastq/.fastq.gz)"  format="fastq,gz" />
+		<param type="data" name="input_fastq1" label="Read 1 file for scRNA-seq dataset. (.fastq/.fastq.gz)" format="fastq" />
+		<param type="data" name="input_fastq2" label="Read 2 file for scRNA-seq dataset. (.fastq/.fastq.gz)"  format="fastq" />
 	
 		<param name="ref_transcriptome" label="Select the reference transcriptome of your choice:" type="select" multiple="false" format="text" help="Choose a reference transcriptome!">
 			<option value="v29_index">Homo sapiens (Gencode v29)</option>
@@ -51,28 +55,20 @@
 
 	</inputs>
 	<outputs>
-		<data name="alevin_log" format="txt" from_work_dir="alevin_output/alevin/alevin.log" />
-		<data name="alevin_predictions" format="txt" from_work_dir="alevin_output/alevin/predictions.txt" />
-		<data name="alevin_quants_mat" format="gz" from_work_dir="alevin_output/alevin/quants_mat.gz" />
-		<data name="alevin_quants_mat_cols" format="txt" from_work_dir="alevin_output/alevin/quants_mat_cols.txt" />
-		<data name="alevin_quants_mat_rows" format="txt" from_work_dir="alevin_output/alevin/quants_mat_rows.txt" />
-		<data name="alevin_quants_tier_mat" format="gz" from_work_dir="alevin_output/alevin/quants_tier_mat.gz" />
-		<data name="alevin_whitelist" format="txt" from_work_dir="alevin_output/alevin/whitelist.txt" />
+               <data name="alevin_quants_mat" label="Alevin expression matrix" from_work_dir="alevin_output/alevin/quants_mat.gz" />
+               <data name="alevin_quants_mat_cols" label="Alevin gene names"   format="txt" from_work_dir="alevin_output/alevin/quants_mat_cols.txt" />
+               <data name="alevin_quants_mat_row" label="Alevin cell names" format="txt" from_work_dir="alevin_output/alevin/quants_mat_rows.txt" />
 
 	</outputs>
 	<tests>
 		<test>
-		<param name="input_fastq1" value="test_salmon_alevin.R1.1000.fastq"/>
-		<param name="input_fastq2" value="test_salmon_alevin.R2.1000.fastq"/>
+		<param name="input_fastq1" value="test_salmon_alevin.R1.fastq"/>
+		<param name="input_fastq2" value="test_salmon_alevin.R2.fastq"/>
 		<param name="ref_transcriptome" value="vM20_index"/>
 		<param name="sc_datatype" value="dropseq"/>
-		<output name="alevin_log" file="alevin.log"/>
-		<output name="alevin_predictions" file="predictions.txt"/>
 		<output name="alevin_quants_mat" file="quants_mat.gz"/>
 		<output name="alevin_quants_mat_cols" file="quants_mat_cols.txt"/>
 		<output name="alevin_quants_mat_rows" file="quants_mat_rows.txt"/>
-		<output name="alevin_quants_tier_mat" file="quants_tier_mat.gz"/>
-		<output name="alevin_whitelist" file="whitelist.txt"/>
 		</test>
 	</tests>
 

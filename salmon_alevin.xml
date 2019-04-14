@@ -2,6 +2,11 @@
 	<description> enables gene quantification for single-cell RNA-seq using quasi mapping.</description>
 	<requirements>
 		<requirement type="package" version="0.13.1">salmon</requirement>
+		<requirement type="package" version="3.4.1">r-base</requirement>
+		<requirement type="package" version="1.2_14">r-matrix</requirement>
+	 	<requirement type="package" version="1.11.4">r-data.table</requirement>
+
+
 	</requirements>
 
 	<stdio>
@@ -36,9 +41,7 @@
 		-p 4
 		-o ./alevin_output
 	&&
-	ln -s "alevin_output/alevin/quants_mat.mtx" matrix.mtx
-	&&
-	convert_to_MatrixMarkert.R  
+	R CMD BATCH convert_to_MatrixMarkert.R  
 
 	]]>
 	</command>

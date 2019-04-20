@@ -18,7 +18,6 @@
 	</stdio>
 
 	 <command><![CDATA[
-
 	## Create output directory for salmon alevin
 	mkdir ./alevin_output 
 	&&
@@ -41,8 +40,7 @@
 		-p 4
 		-o ./alevin_output
 	&&
-	Rscript ./convert_to_sparseMatrixRDS.R 
-
+	Rscript /cvmfs/soft.galaxy/v2.1/server/tools/salmon_alevin/convert_to_sparseMatrixRDS.R
 	]]>
 	</command>
 

@@ -1,9 +1,17 @@
-#!/usr/bin/env Rscript 
+## Redirect R error handling to stderr.
+options(show.error.messages=F, error=function(){cat(geterrmessage(), file=stderr());q("no",1,F)})
+## Avoid crashing Galaxy with a UTF8 error on German LC settings.
+loc <- Sys.setlocale("LC_MESSAGES", "en_US.UTF-8")
 
-print("Converting to sparse matrix and saving as RDS file...")
+#print("Converting to sparse matrix and saving as RDS file...")
+## Load required libraries without seeing messages
+suppressPackageStartupMessages({
 
 library(Matrix)
 library(data.table)
+
+})
+
 ## Read in salmon alevin matrix output
 
 # save as sparse matrix

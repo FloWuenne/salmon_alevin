@@ -5,8 +5,6 @@
 		<requirement type="package" version="3.4.1">r-base</requirement>
 		<requirement type="package" version="1.2_14">r-matrix</requirement>
 	 	<requirement type="package" version="1.11.4">r-data.table</requirement>
-
-
 	</requirements>
 
 	<stdio>
@@ -33,8 +31,8 @@
 		--dumpCsvCounts
 		-i /data/galaxy_data/references/salmon_alevin/$ref_transcriptome
 		#if $ref_transcriptome == 'v29_index':
-			--tgMap /data/galaxy_data/references/salmon_alevin/v29_txp2gene.tsv 
-		#else if $ref_transcriptome == 'vM20_index':
+			--tgMap /data/galaxy_data/references/salmon_alevin/v29_txp2gene.tsv
+		#else:
 			--tgMap /data/galaxy_data/references/salmon_alevin/vM20_txp2gene.tsv
 		#end if 
 		-p 4
@@ -61,8 +59,9 @@
 
 	</inputs>
 	<outputs>
-               <data name="alevin_quants_mat" label="Alevin sparse expression matrix (RDS format)" format="rdata" from_work_dir="salmon_alevin_matrix.RDS" />
-
+               <data name="alevin_matrix" label="Alevin matrix in MatrixMarket format" format="txt" from_work_dir="matrix.mtx" />
+		<data name="barcodes" label="Cell barocdes from alevin" format="txt" from_work_dir="barcodes.tsv" />
+		<data name="genes" label="Gene names from alevin." format="txt" from_work_dir="genes.tsv" />
 	</outputs>
 	<tests>
 		<test>
@@ -70,7 +69,9 @@
 		<param name="input_fastq2" value="test_salmon_alevin.R2.fastq"/>
 		<param name="ref_transcriptome" value="vM20_index"/>
 		<param name="sc_datatype" value="dropseq"/>
-		<output name="alevin_quants_mat" file="salmon_alevin_matrix.RDS"/>
+		<output name="alevin_matrix" file="matrix.mtx"/>
+		<output name="barcodes" file="barcodes.tsv"/>
+		<output name="genes" file="genes.tsv"/>
 		</test>
 	</tests>
 

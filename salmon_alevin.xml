@@ -4,7 +4,7 @@
 		<requirement type="package" version="0.13.1">salmon</requirement>
 		<requirement type="package" version="3.4.1">r-base</requirement>
 		<requirement type="package" version="1.2_14">r-matrix</requirement>
-	 	<requirement type="package" version="1.11.4">r-data.table</requirement>
+	 	<requirement type="package" version="1.10.4">r-data.table</requirement>
 	</requirements>
 
 	<stdio>
@@ -29,11 +29,11 @@
 		-2 ./mate2.fastq
 		--$sc_datatype
 		--dumpCsvCounts
-		-i /data/galaxy_data/references/salmon_alevin/$ref_transcriptome
+		-i /home/galaxy/references/$ref_transcriptome
 		#if $ref_transcriptome == 'v29_index':
-			--tgMap /data/galaxy_data/references/salmon_alevin/v29_txp2gene.tsv
+			--tgMap /home/galaxy/references/v29_txp2gene.tsv
 		#else:
-			--tgMap /data/galaxy_data/references/salmon_alevin/vM20_txp2gene.tsv
+			--tgMap /home/galaxy/references/vM20_txp2gene.tsv
 		#end if 
 		-p 4
 		-o ./alevin_output

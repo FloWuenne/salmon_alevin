@@ -1,0 +1,31 @@
+<tool id="alevin_to_seurat" name="Alevin to Seurat" version="0.1.0">
+    <!-- A simple description of the tool that will appear in the tool panel in Galaxy. -->
+    <description> transforms an alevin matrix in rds format to a Seurat object>
+    <!-- Handles exit codes in Galaxy. -->
+    <stdio>
+        <exit_code range="1:" />
+    </stdio>
+    <requirements>
+        <requirement type="package" version="3.4.1">r-base</requirement>
+        <requirement type="package" version="1.20.0">r-getopt</requirement>
+	<requirement type="package" version="2.3.4">r-seurat</requirement>
+    </requirements>
+    <command><![CDATA[
+        Rscript /path/to/example_seqTools/my_seqTools_tool.R --input1 $alevin_matrix_rds  --output $seurat_object
+    ]]></command>
+    <inputs>
+        <param type="data" name="alevin_matrix_rds" format="rdata" label="Alevin sparse Matrix (.rds)" />
+    </inputs>
+    <outputs>
+        <data name="seurat_object" format="rdata" />
+    </outputs>
+    <tests>
+        <test>
+            <param name="alevin_matrix_rds" value="/test_data/salmon_alevin_matrix.RDS"/>
+            <output name="seurat_object" file="/test_data/alevin_seurat_object.rds"/>
+        </test>
+    </tests>
+    <help><![CDATA[
+        Reads in Alevin sparse Matrix in .rds format and creates a Seurat object from it.
+    ]]></help>
+</tool>

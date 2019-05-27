@@ -46,7 +46,4 @@ seurat_object <- FindVariableGenes(seurat_object,do.plot=FALSE)
 
 anndata <- Convert(from = seurat_object, to = "anndata", filename = "anndata_object.h5ad")
 
-# Output kmer counts
-saveRDS(seurat_object, file = options$output)
-
 cat("\n Successfully created Scanpy object! \n")

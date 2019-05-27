@@ -40,6 +40,10 @@ alevin_matrix <- readRDS(options$input)
 ## Create Seurat object
 seurat_object <- CreateSeuratObject(alevin_matrix)
 
+## Normalize seurat object and find variable genes (required for converting to anndata!)
+seurat_object <- NormalizeData(object = seurat_object, normalization.method = "LogNormalize", scale.factor = 10000)
+seurat_object <- FindVariableGenes(seurat_object,do.plot=FALSE)
+
 anndata <- Convert(from = seurat_object, to = "anndata", filename = "anndata_object.h5ad")
 
 # Output kmer counts

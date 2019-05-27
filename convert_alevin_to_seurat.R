@@ -24,10 +24,10 @@ args <- commandArgs(trailingOnly = TRUE)
 option_specification = matrix(c(
   'input', 'i1', 2, 'character',
   'output', 'o', 2, 'character'
-), byrow=TRUE, ncol=4);
+), byrow=TRUE, ncol=4)
 
 # Parse options
-options = getopt(option_specification);
+options = getopt(option_specification)
 
 # Print options to stderr
 # Useful for debugging

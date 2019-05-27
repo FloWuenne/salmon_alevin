@@ -44,6 +44,6 @@ seurat_object <- CreateSeuratObject(alevin_matrix)
 seurat_object <- NormalizeData(object = seurat_object, normalization.method = "LogNormalize", scale.factor = 10000)
 seurat_object <- FindVariableGenes(seurat_object,do.plot=FALSE)
 
-anndata <- Convert(from = seurat_object, to = "anndata", filename = "anndata_object.h5ad")
+anndata <- Convert(from = seurat_object, to = "anndata", filename = option$output)
 
 cat("\n Successfully created Scanpy object! \n")

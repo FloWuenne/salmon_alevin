@@ -15,7 +15,7 @@
         <param type="data" name="alevin_matrix_rds" format="rdata" label="Alevin sparse Matrix (.rds)" />
     </inputs>
     <outputs>
-        <data name="scanpy_object" format="rdata" from_work_dir="anndata_object.h5ad" />
+        <data name="scanpy_object" format="h5" from_work_dir="anndata_object.h5ad" />
     </outputs>
     <tests>
         <test>

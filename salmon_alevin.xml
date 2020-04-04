@@ -15,7 +15,7 @@
 		<regex match="Exception :" />
 	</stdio>
 
-	 <command><![CDATA[
+	<command><![CDATA[
 	## Create output directory for salmon alevin
 	mkdir ./alevin_output 
 	&&
@@ -34,11 +34,6 @@
 			--tgMap /cvmfs/soft.galaxy/v2.1/server/tools/florian/refs/v29_txp2gene.tsv
 		#else:
 			--tgMap /cvmfs/soft.galaxy/v2.1/server/tools/florian/refs/vM20_txp2gene.tsv
-		-i /cvmfs/soft.galaxy/v2.1/refs/$ref_transcriptome
-		#if $ref_transcriptome == 'v29_index':
-			--tgMap /cvmfs/soft.galaxy/v2.1/refs/v29_txp2gene.tsv
-		#else:
-			--tgMap /cvmfs/soft.galaxy/v2.1/refs/vM20_txp2gene.tsv
 		#end if 
 		-p 4
 		-o ./alevin_output
@@ -108,7 +103,7 @@ or send a quick mail describing your aim to flowuenne@gmail.com!
 
 
     ]]></help>
-    <citations>
-	<citation type="doi">10.1101/021592</citation>	
-    </citations>
+	<citations>
+		<citation type="doi">10.1101/021592</citation>	
+	</citations>
 </tool>

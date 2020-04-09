@@ -29,16 +29,16 @@
 		-2 ./mate2.fastq
 		--$sc_datatype
 		--dumpCsvCounts
-		-i /cvmfs/soft.galaxy/v2.1/server/tools/florian/refs/$ref_transcriptome
+		-i /cvmfs/soft.galaxy/v2.1/server/tools/single_cell_tools/refs/$ref_transcriptome
 		#if $ref_transcriptome == 'v29_index':
-			--tgMap /cvmfs/soft.galaxy/v2.1/server/tools/florian/refs/v29_txp2gene.tsv
+			--tgMap /cvmfs/soft.galaxy/v2.1/server/tools/single_cell_tools/refs/v29_txp2gene.tsv
 		#else:
-			--tgMap /cvmfs/soft.galaxy/v2.1/server/tools/florian/refs/vM20_txp2gene.tsv
+			--tgMap /cvmfs/soft.galaxy/v2.1/server/tools/single_cell_tools/refs/vM20_txp2gene.tsv
 		#end if 
 		-p 4
 		-o ./alevin_output
 	&&
-	Rscript /cvmfs/soft.galaxy/v2.1/server/tools/florian/salmon_alevin/convert_to_matrixRDS.R
+	Rscript '$__tool_directory__/convert_to_matrixRDS.R'
 	]]>
 	</command>
 

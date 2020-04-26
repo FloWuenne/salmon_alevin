@@ -1,5 +1,5 @@
-<tool id="alevin_to_seurat" name="Alevin to Seurat" version="0.1.0">
-    <description> transforms an alevin matrix in rds format to a Seurat object</description>
+<tool id="alevin_to_seurat" name="Create Seurat object" version="0.1.0">
+    <description> transforms an salmon alevin output or DGE matrix to a Seurat object v2.3.4</description>
     <stdio>
         <exit_code range="1:" />
     </stdio>
@@ -9,21 +9,30 @@
 	<requirement type="package" version="2.3.4">r-seurat</requirement>
     </requirements>
     <command><![CDATA[
-        Rscript /cvmfs/soft.galaxy/v2.1/server/tools/single_cell_tools/salmon_alevin/convert_alevin_to_seurat.R --input $alevin_matrix_rds  --output $seurat_object
+        Rscript /cvmfs/soft.galaxy/v2.1/server/tools/single_cell_tools/salmon_alevin/convert_alevin_to_seurat.R --input $input_file --input_type $input_type  --output $seurat_object
     ]]></command>
     <inputs>
-        <param type="data" name="alevin_matrix_rds" format="rdata" label="Alevin sparse Matrix (.rds)" />
+        <param type="data" name="input_file" label="Input file" />
+	<param type="data" name="input_type" label="Select the format of your input:" type="select" multiple="false" format="text" help="Choose the input format of your data. This can be one of the following choices: Salmon alevin matrix, DGE (cells x genes).">
+		<option value="alevin_matrix_rds">Salmon Alevin matrix (.rds)</option>
+		<option value="dge_text">DGE text file (Cells are columns, genes are rows)</option>
+	</param>
     </inputs>
     <outputs>
         <data name="seurat_object" format="rdata" />
     </outputs>
     <tests>
         <test>
-            <param name="alevin_matrix_rds" value="/test_data/salmon_alevin_matrix.RDS"/>
-            <output name="seurat_object" file="/test_data/alevin_seurat_object.rds"/>
+		<param name="input_file" value="/test_data/salmon_alevin_matrix.RDS"/>
+		<param name="input_type" value="alevin_matrix_rds"/>
+		<output name="seurat_object" file="/test_data/alevin_seurat_object.rds"/>
         </test>
     </tests>
     <help><![CDATA[
-        Reads in Alevin sparse Matrix in .rds format and creates a Seurat object from it.
+        Reads input file provided by user and creates a Seurat object from it.
+
+	Currently accepts the following inputs:
+		* Salmon alevin matrix (.rds format)
+		* DGE in text format (Cells are columns, genes are rows.
     ]]></help>
 </tool>

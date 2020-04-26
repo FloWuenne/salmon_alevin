@@ -23,6 +23,7 @@ args <- commandArgs(trailingOnly = TRUE)
 # Read the options from the default: commandArgs(TRUE)
 option_specification = matrix(c(
   'input', 'i1', 2, 'character',
+  'type', 't', 2, 'character',
   'output', 'o', 2, 'character'
 ), byrow=TRUE, ncol=4);
 
@@ -34,11 +35,17 @@ options = getopt(option_specification);
 #cat("\n input file: ",options$input)
 #cat("\n output file: ",options$output)
 
-## Read in alevin sparse Matrix as RDS file
-alevin_matrix <- readRDS(options$input)
+#### Check what the input type is
+if(options$type=="dge_text"){
+  ## DGE file in text format
+  input_data <- read.table(options$input, row.names = 1)
+}else if(options$type=="alevin_matrix_rds"){
+  ## Salmon Alevin matrix
+  input_data <- readRDS(options$input)
+}
 
 ## Create Seurat object
-seurat_object <- CreateSeuratObject(alevin_matrix)
+seurat_object <- CreateSeuratObject(input_data)
 
 ## Normalize seurat object and find variable genes (required for converting to anndata!)
 seurat_object <- NormalizeData(object = seurat_object, normalization.method = "LogNormalize", scale.factor = 10000)

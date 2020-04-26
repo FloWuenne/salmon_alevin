@@ -1,29 +1,38 @@
-<tool id="alevin_to_scanpy" name="Alevin to Scanpy" version="0.1.0">
-    <description> transforms an alevin matrix in rds format to a Scanpy object</description>
+<tool id="alevin_to_scanpy" name="Create Scanpy anndata object" version="0.1.0">
+    <description> from a salmon alevin output or DGE matrix.</description>
     <stdio>
         <exit_code range="1:" />
     </stdio>
     <requirements>
         <requirement type="package" version="3.4.1">r-base</requirement>
         <requirement type="package" version="1.20.0">r-getopt</requirement>
-	<requirement type="package" version="2.3.4">r-seurat</requirement>
+        <requirement type="package" version="2.3.4">r-seurat</requirement>
     </requirements>
     <command><![CDATA[
-        Rscript /cvmfs/soft.galaxy/v2.1/server/tools/single_cell_tools/salmon_alevin/convert_alevin_to_scanpy.R --input $alevin_matrix_rds  --output $scanpy_object
+        Rscript /cvmfs/soft.galaxy/v2.1/server/tools/single_cell_tools/salmon_alevin/convert_alevin_to_scanpy.R --input $input_file --type $input_type --output $scanpy_object
     ]]></command>
     <inputs>
-        <param type="data" name="alevin_matrix_rds" format="rdata" label="Alevin sparse Matrix (.rds)" />
+        <param type="data" name="input_file" format="rdata" label="Alevin sparse Matrix (.rds)" />
+        <param type="select" name="input_type" label="Select the format of your input:" multiple="false" format="text" help="Choose the input format of your data. This can be one of the following choices: Salmon alevin matrix, DGE (cells x genes).">
+            <option value="alevin_matrix_rds">Salmon Alevin matrix (.rds)</option>
+            <option value="dge_text">DGE text file (Cells are columns, genes are rows)</option>
+       </param>
     </inputs>
     <outputs>
         <data name="scanpy_object" format="h5" from_work_dir="anndata_object.h5ad"/>
     </outputs>
     <tests>
         <test>
-            <param name="alevin_matrix_rds" value="/test_data/salmon_alevin_matrix.RDS"/>
+            <param name="input_file" value="/test_data/salmon_alevin_matrix.RDS"/>
+            <param name="input_type" value="alevin_matrix_rds"/>
             <output name="scanpy_object" file="/test_data/alevin_scanpy_object.h5ad"/>
         </test>
     </tests>
     <help><![CDATA[
-        Reads in Alevin sparse Matrix in .rds format and creates a Scanpy object from it.
+        Reads input file provided by user and creates a Scanpy h5ad object from it.
+
+        Currently accepts the following input formats:
+            * Salmon alevin matrix (.rds format from salmon alevin tool)
+            * DGE in text format (Cells are columns, genes are rows.
     ]]></help>
 </tool>

@@ -17,16 +17,26 @@
 
 	<command><![CDATA[
 	## Create output directory for salmon alevin
-	mkdir ./alevin_output 
+	mkdir ./alevin_output
 	&&
-	ln -s $input_fastq1 ./mate1.fastq
-	&&
-	ln -s $input_fastq2 ./mate2.fastq
-	&&
+	#for input in $input_fastq1
+		ln -sf '$input' '$input'".R1.fastq.gz"
+		&&
+	#end for
+	#for input in $input_fastq2
+                ln -sf '$input' '$input'".R2.fastq.gz" 
+		&&
+        #end for
 	salmon alevin --no-version-check
 		-l ISR
-		-1 ./mate1.fastq
-		-2 ./mate2.fastq
+		-1 
+		#for i in $input_fastq1
+			$i'.R1.fastq.gz'
+		#end for
+		-2 
+                #for i in $input_fastq2
+			$i'.R2.fastq.gz'
+                #end for
 		--$sc_datatype
 		--dumpCsvCounts
 		-i /cvmfs/soft.galaxy/v2.1/server/tools/single_cell_tools/refs/$ref_transcriptome
@@ -43,8 +53,8 @@
 	</command>
 
 	<inputs>
-		<param type="data" name="input_fastq1" label="Read 1 file for scRNA-seq dataset. (.fastq/.fastq.gz)" format="fastq" />
-		<param type="data" name="input_fastq2" label="Read 2 file for scRNA-seq dataset. (.fastq/.fastq.gz)"  format="fastq" />
+		<param type="data" name="input_fastq1" label="Read 1 file for scRNA-seq dataset. (.fastq/.fastq.gz)" format="fastq" multiple="true"/>
+		<param type="data" name="input_fastq2" label="Read 2 file for scRNA-seq dataset. (.fastq/.fastq.gz)"  format="fastq" multiple="true" />
 	
 		<param name="ref_transcriptome" label="Select the reference transcriptome of your choice:" type="select" multiple="false" format="text" help="Choose a reference transcriptome!">
 			<option value="v29_index">Homo sapiens (Gencode v29)</option>

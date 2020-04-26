@@ -1,7 +1,7 @@
 <tool id="alevin_to_seurat" name="Create Seurat object" version="0.1.0">
     <description> transforms an salmon alevin output or DGE matrix to a Seurat object v2.3.4</description>
     <stdio>
-        <exit_code range="1:" />
+        <exit_code range="1:"/>
     </stdio>
     <requirements>
         <requirement type="package" version="3.4.1">r-base</requirement>
@@ -13,7 +13,7 @@
     ]]></command>
     <inputs>
         <param type="data" name="input_file" label="Input file"/>
-        <param type="data" name="type" label="Select the format of your input:" type="select" multiple="false" format="text" help="Choose the input format of your data. This can be one of the following choices: Salmon alevin matrix, DGE (cells x genes).">
+        <param type="select" name="type" label="Select the format of your input:" multiple="false" format="text" help="Choose the input format of your data. This can be one of the following choices: Salmon alevin matrix, DGE (cells x genes).">
             <option value="alevin_matrix_rds">Salmon Alevin matrix (.rds)</option>
             <option value="dge_text">DGE text file (Cells are columns, genes are rows)</option>
 	   </param>

@@ -1,5 +1,5 @@
 <tool id="alevin_to_seurat" name="Create Seurat object" version="0.1.0">
-    <description> transforms an salmon alevin output or DGE matrix to a Seurat object v2.3.4</description>
+    <description> from a salmon alevin output or DGE matrix (Seurat object = v2.3.4)</description>
     <stdio>
         <exit_code range="1:"/>
     </stdio>
@@ -31,8 +31,8 @@
     <help><![CDATA[
         Reads input file provided by user and creates a Seurat object from it.
 
-	Currently accepts the following inputs:
-		* Salmon alevin matrix (.rds format)
-		* DGE in text format (Cells are columns, genes are rows.
+        Currently accepts the following input formats:
+            * Salmon alevin matrix (.rds format from salmon alevin tool)
+            * DGE in text format (Cells are columns, genes are rows.
     ]]></help>
 </tool>

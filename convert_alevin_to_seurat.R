@@ -31,9 +31,9 @@ options = getopt(option_specification)
 
 # Print options to stderr
 # Useful for debugging
-cat("\n input file: ",options$input)
-cat("\n input file: ",options$input_type)
-cat("\n output file: ",options$output)
+#cat("\n input file: ",options$input)
+#cat("\n input file: ",options$type)
+#cat("\n output file: ",options$output)
 
 #### Check what the input type is
 if(options$type=="dge_text"){

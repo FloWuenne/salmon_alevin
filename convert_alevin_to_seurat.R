@@ -22,7 +22,7 @@ args <- commandArgs(trailingOnly = TRUE)
 # Read the options from the default: commandArgs(TRUE)
 option_specification = matrix(c(
   'input', 'i1', 2, 'character',
-  'input_type', 't', 2, 'character'
+  'input_type', 't', 2, 'character',
   'output', 'o', 2, 'character'
 ), byrow=TRUE, ncol=4)
 
@@ -37,9 +37,8 @@ cat("\n output file: ",options$output)
 
 #### Check what the input type is
 if(options$input_type=="dge_text"){
-	## DGE file in text format
-	input_data <- read.table(options$input,
-				row.names = 1)
+  ## DGE file in text format
+  input_data <- read.table(options$input, row.names = 1)
 }else if(options$input_type=="alevin_matrix_rds"){
 	## Salmon Alevin matrix
 	input_data <- readRDS(options$input)

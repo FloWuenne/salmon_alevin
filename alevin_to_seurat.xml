@@ -7,16 +7,18 @@
         <requirement type="package" version="3.4.1">r-base</requirement>
         <requirement type="package" version="1.20.0">r-getopt</requirement>
         <requirement type="package" version="2.3.4">r-seurat</requirement>
+        <requirement type="package" version="1.15">r-reticulate</requirement>
     </requirements>
     <command><![CDATA[
-        Rscript /cvmfs/soft.galaxy/v2.1/server/tools/single_cell_tools/salmon_alevin/convert_alevin_to_seurat.R --input $input_file --type $input_type  --output $seurat_object
+        Rscript '$__tool_directory__/convert_alevin_to_seurat.R --input $input_file --type $input_type  --output $seurat_object'
     ]]></command>
     <inputs>
         <param type="data" name="input_file" label="Input file"/>
         <param type="select" name="input_type" label="Select the format of your input:" multiple="false" format="text" help="Choose the input format of your data. This can be one of the following choices: Salmon alevin matrix, DGE (cells x genes).">
             <option value="alevin_matrix_rds">Salmon Alevin matrix (.rds)</option>
             <option value="dge_text">DGE text file (Cells are columns, genes are rows)</option>
-	   </param>
+            <option value="scanpy_h5">Anndata object from Scanpy (.h5,.h5ad)</option>
+	</param>
     </inputs>
     <outputs>
         <data name="seurat_object" format="rdata"/>

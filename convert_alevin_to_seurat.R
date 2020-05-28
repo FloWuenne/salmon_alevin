@@ -10,6 +10,7 @@ loc <- Sys.setlocale("LC_MESSAGES", "en_US.UTF-8")
 suppressPackageStartupMessages({
   library("getopt")
   library("Seurat")
+  library("reticulate")
 })
 
 # Import required libraries
@@ -42,11 +43,17 @@ if(options$type=="dge_text"){
 }else if(options$type=="alevin_matrix_rds"){
 	## Salmon Alevin matrix
 	input_data <- readRDS(options$input)
+}else if(options$type=="scanpy_h5"){
+	ad <- import("anndata", convert = FALSE)
+	ad_object <- ad$read_h5ad(options$input)
+	seurat_object <- Convert(pbmc_ad, to = "seurat")
 }
 
 
 ## Create Seurat object
-seurat_object <- CreateSeuratObject(input_data)
+if(options$type != "scanpy_h5"){
+	seurat_object <- CreateSeuratObject(input_data)
+}
 
 # Output kmer counts
 saveRDS(seurat_object, file = options$output)
